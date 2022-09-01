@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Subir Archivo Excel</h2>
+@model List<string>
+@using (Html.BeginForm("Index", "FileUpload",
+    FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+            {
+            <div class="container form-group table-bordered " >
+                <label for="file">Subri archivo:</label>
+                <input class="input-lg" type="file" name="file" id="file" />
+                <br />
+
+                <input class="input-lg" type="submit" value="Subir Archivo" />
+                <br />
+                @ViewBag.Message @*estado mensaje de carga*@
+                <br />
+            </div>
+                
+           
+<h2>Descargar Archivo Excel</h2>
+<div class="container table-bordered" >
+    <table>
+        <tr>
+            <th>File name</th>
+            <th>Enlace</th>
+        </tr>
+        @for (int i = 0; i <= Model.Count - 1 ; i++)
+        {
+            <tr>
+                <td>@Model[i].ToString()</td>
+                <td>@Html.ActionLink("Descargar","Download",new { FileName = @Model[i].ToString() })</td>
+            </tr>
+        }
+    </table>
+</div>
+
+}
